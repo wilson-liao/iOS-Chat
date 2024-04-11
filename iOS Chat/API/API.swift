@@ -20,7 +20,7 @@ let putEndPoint = baseURL + "/user/"
 let signup = baseURL + "/signup"
 let loginEnd = baseURL + "/login"
 let loginPutEnd = baseURL + "/update/"
-
+let logoutEnd = baseURL + "/logout"
 
 // User Info Calls
 func getUsers() async -> Result<[User], Error> {
@@ -239,6 +239,28 @@ func loginPost(l: login) async -> Result<login, Error> {
             return .failure("Incorrect Password")
         }
         print("POST Request Failed, status code \(statusCode)")
+        return .failure(APIError.invalidResponse)
+    }
+    catch {
+        return .failure(error)
+    }
+}
+
+func logoutGet(l: login) async -> Result<String, Error>{
+    guard let url =  URL(string: logoutEnd) else {
+        print("cannot get URL")
+        return .failure(APIError.invalidURL)
+    }
+    do {
+        let (data, res) = try await URLSession.shared.data(from: url)
+        let statusCode = (res as! HTTPURLResponse).statusCode
+        
+        if statusCode == 200 {
+            print("Log out success!")
+            let message = try JSONDecoder().decode(String.self, from: data)
+            return .success(message)
+        }
+        print("GET Request Failed, status code \(statusCode)")
         return .failure(APIError.invalidResponse)
     }
     catch {

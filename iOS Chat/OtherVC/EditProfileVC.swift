@@ -152,7 +152,8 @@ class EditProfileVC: UIViewController{
         }))
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
             let vc = CameraVC(user: self.user, loginEntry: self.loginEntry)
-            self.navigationController?.viewControllers = [vc]
+//            self.navigationController?.viewControllers = [vc]
+            self.navigationController?.pushViewController(vc, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
         }))
@@ -184,7 +185,7 @@ class EditProfileVC: UIViewController{
                     // update loginentry info id in server
                     await updateLogin(l: self.loginEntry)
                     
-                    let vc = TBController(user: self.user, entry: self.loginEntry)
+                    let vc = TBController(user: self.user, loginEntry: self.loginEntry)
                     self.navigationController?.viewControllers = [vc]
                     
                 case.failure(let error):

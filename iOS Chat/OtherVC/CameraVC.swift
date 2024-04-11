@@ -40,10 +40,13 @@ class CameraVC: UIViewController, AVCapturePhotoCaptureDelegate {
         super.viewDidLoad()
         view.backgroundColor = .black
         
-        self.navigationController?.isNavigationBarHidden = true
-        
         configCameraLayer()
         checkCameraPermissions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLayoutSubviews() {

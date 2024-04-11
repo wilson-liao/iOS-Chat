@@ -133,7 +133,7 @@ class LogInVC: UIViewController {
                 case.success(let user):
                     // Take user to Tab Bar view
                     let user = user
-                    let vc = TBController(user:user, entry: self.loginEntry)
+                    let vc = TBController(user:user, loginEntry: self.loginEntry)
                     self.navigationController?.viewControllers = [vc]
                 case.failure(let error):
                     print(error)

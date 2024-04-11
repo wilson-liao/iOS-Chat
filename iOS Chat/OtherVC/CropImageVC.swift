@@ -58,10 +58,13 @@ class CropImageVC: UIViewController, CropViewControllerDelegate {
         let data = image.PNGData
         self.user?.img = data!
         
-        let uservc = UserProfileVC(user: self.user!, entry: self.loginEntry!)
         let editvc = EditProfileVC(user: self.user!, loginEntry: self.loginEntry!)
-        let stack = [uservc, editvc]
-        self.navigationController?.viewControllers = stack
+        var stack = self.navigationController?.viewControllers
+        let len = stack?.count
+        stack?.remove(at: len!-1)
+        stack?.remove(at: len!-2)
+        stack![1] = editvc
+        self.navigationController?.viewControllers = stack!
         
         cropViewController.dismiss(animated: true)
     }

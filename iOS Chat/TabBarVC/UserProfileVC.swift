@@ -14,6 +14,7 @@ class UserProfileVC: UIViewController {
     var nameLabel = UILabel()
     var imageLabel = UIImageView()
     var editButton = UIButton()
+    var logoutButton = UIButton()
     
     var userList: [User]!
     var user: User!
@@ -29,6 +30,7 @@ class UserProfileVC: UIViewController {
         configureImage()
         configureName()
         configureEdit()
+        configureLogout()
         configInit()
     }
     
@@ -100,5 +102,37 @@ class UserProfileVC: UIViewController {
         self.navigationController?.pushViewController(editVC, animated: true)
     }
     
+    func configureLogout() {
+        view.addSubview(logoutButton)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        logoutButton.backgroundColor = .red
+        logoutButton.setTitle("Log Out", for: .normal)
+        logoutButton.addTarget(self, action: #selector(logoutClicked), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            logoutButton.widthAnchor.constraint(equalToConstant: 100),
+            logoutButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    @objc func logoutClicked() {
+        
+        Task{
+            let res = await logoutGet(l: self.loginEntry)
+            switch res {
+            case .success(let message):
+                print(message)
+                let vc = LogInVC()
+                let window = UIApplication.shared.connectedScenes.map({ $0 as? UIWindowScene }).compactMap({ $0 }).first?.windows.first
+                window?.rootViewController = UINavigationController(rootViewController: vc)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 

@@ -18,11 +18,11 @@ class TBController: UITabBarController {
         
     }
     
-    init(user: User, entry: login) {
+    init(user: User, loginEntry: login) {
         super.init(nibName: nil, bundle: nil)
         
         self.user = user
-        self.loginEntry = entry
+        self.loginEntry = loginEntry
         setTabBar()
     }
     
