@@ -12,6 +12,9 @@ struct User: Codable {
     var _id: String
     var name: String
     var bio: String
+    var friends: [String]
+    var friendRequests: [String]
+    var convoEntries: [convoEntry]
     var img: Data
     
     
@@ -20,6 +23,9 @@ struct User: Codable {
         self.name = name
         self.bio = bio
         self.img = img
+        self.friends = []
+        self.friendRequests = []
+        self.convoEntries = []
     }
     
     mutating func setID(id: String) {
@@ -30,6 +36,22 @@ struct User: Codable {
         print(self.name)
         print(self.bio)
     }
+}
+
+struct convoEntry: Codable {
+    var friendId: [String]
+    var roomId: String
+}
+
+struct storeRoomStruct: Codable {
+    var roomId: String
+    var senderId: String
+    var targetId: String
+}
+
+struct friendRequestStruct: Codable {
+    var targetId: String
+    var senderId: String
 }
 
 struct login: Codable {

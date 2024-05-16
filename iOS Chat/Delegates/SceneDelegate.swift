@@ -19,14 +19,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-//        window?.rootViewController = UINavigationController(rootViewController: TBController())
-//        window?.rootViewController = TBController()
-        window?.rootViewController = UINavigationController(rootViewController: LogInVC())
+        
+        
         let data = UIImage(named: "pfp")?.PNGData
         let user = User(name: "test", bio: "bio", img: data!)
-//        window?.rootViewController = UINavigationController(rootViewController: UserProfileVC(user: user))
         let entry = login(email: "wilson@gmail.com", password: "123")
-//        window?.rootViewController = UINavigationController(rootViewController: TBController(user: user, loginEntry: entry))
+//        window?.rootViewController = TBController(user: user, loginEntry: entry)
+//        window?.rootViewController = FriendProfileVC(friend: user)
+        window?.rootViewController = UINavigationController(rootViewController: LogInVC())
+//        window?.rootViewController = UINavigationController(rootViewController: EditProfileVC(user: user, loginEntry: entry))
+        
         window?.makeKeyAndVisible()
     }
 
