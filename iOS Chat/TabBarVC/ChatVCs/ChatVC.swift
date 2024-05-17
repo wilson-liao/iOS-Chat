@@ -33,6 +33,15 @@ class ChatVC: UIViewController{
     init(u: User) {
         super.init(nibName: nil, bundle: nil)
         
+        reload(u: u)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func reload(u: User) {
         self.selfUser = u
         Task {
             let res = await getFriendsList(id: u._id)
@@ -43,10 +52,6 @@ class ChatVC: UIViewController{
                 print(err)
             }
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func configureList() {
@@ -62,6 +67,9 @@ class ChatVC: UIViewController{
         table.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        reload(u:self.selfUser)
+    }
 }
 
 extension ChatVC: UITableViewDelegate, UITableViewDataSource, updateUserDelegate {

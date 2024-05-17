@@ -54,6 +54,7 @@ class ContactsListCell: UITableViewCell {
         self.row = row
         userName.text = "test user \(self.row!)"
         userName.text = users[row].name
+        userimg.image = UIImage(data: users[row].img)
     }
     
     func configureImg() {
